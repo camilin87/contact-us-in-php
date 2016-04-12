@@ -7,8 +7,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $this->assertNotNull($c);
     }
 
-    public function testDisplayAnErrorIfNoNameIsProvided()
-    {
+    public function testDisplayAnErrorIfNoNameIsProvided() {
         $errorHandlerMock = $this->getMockBuilder('ErrorHandler')
                                  ->setMethods(array('displayError'))
                                  ->getMock();
