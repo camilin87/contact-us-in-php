@@ -21,7 +21,11 @@ class ContactUsController{
             return;
         }
 
-        $conn = $this->connectionFactory->createNew("mysql:host=127.0.0.1;dbname=TddContactUs", "root", "");
+        $conn = $this->connectionFactory->createNew(
+            "the db",
+            "the db user",
+            "super secret"
+        );
 
         try{
             $conn->exec("INSERT INTO Submissions(name, email) VALUES('".$_POST["txtName"]."', '".$_POST["txtEmail"]."')");
