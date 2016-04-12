@@ -105,10 +105,12 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                               ->willReturn($connectionMock);
 
         $headerModifierMock = $this->createHeaderModifierMock();
-        $headerModifierMock->expects($this->once())
+        $headerModifierMock->expects($this->exactly(2))
                            ->method('setHeader')
-                           ->with($this->equalTo("HTTP/1.1 303 Other"));
-
+                           ->with($this->logicalOr(
+                                $this->equalTo("HTTP/1.1 303 Other"),
+                                $this->equalTo("Location: http://giphy.com/gifs/zooey-deschanel-happy-tv-show-1VdCubIflP7iM")
+                           ));
 
         $c = new ContactUsController(NULL, $connectionFactoryMock, $headerModifierMock);
 
