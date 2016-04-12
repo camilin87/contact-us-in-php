@@ -53,12 +53,13 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
     public function testDisplayAnErrorIfNoEmailIsProvided() {
         $_POST["txtName"] = "john doe";
 
+        $settingsReaderMock = $this->createSettingsReaderMock();
         $errorHandlerMock = $this->createErrorHandlerMock();
         $errorHandlerMock->expects($this->once())
                          ->method('displayError')
                          ->with($this->equalTo('no email provided'));
 
-        $c = new ContactUsController($errorHandlerMock, NULL, NULL);
+        $c = new ContactUsController($errorHandlerMock, NULL, NULL, $settingsReaderMock);
 
         $c->processRequest();
     }
