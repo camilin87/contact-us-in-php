@@ -26,6 +26,19 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                     ->getMock();
     }
 
+    private function createSettingsReaderMock(){
+        $settingsReaderMock = $this->getMockBuilder('SettingsReader')
+                                   ->setMethods(array('read'))
+                                   ->getMock();
+        $settingsReaderMock->method('read')
+                           ->willReturn([
+                                "DB_CONN_STR" => "the db",
+                                "DB_USER"     => "the db user",
+                                "DB_PWD"      => "super secret"
+                            ]);
+        return $settingsReaderMock;
+    }
+
     public function testDisplayAnErrorIfNoNameIsProvided() {
         $errorHandlerMock = $this->createErrorHandlerMock();
         $errorHandlerMock->expects($this->once())
@@ -77,16 +90,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $_POST["txtName"] = "john doe";
         $_POST["txtEmail"] = "a@a.com";
 
-        $settingsReaderMock = $this->getMockBuilder('SettingsReader')
-                                   ->setMethods(array('read'))
-                                   ->getMock();
-        $settingsReaderMock->method('read')
-                           ->willReturn([
-                                "DB_CONN_STR" => "the db",
-                                "DB_USER"     => "the db user",
-                                "DB_PWD"      => "super secret"
-                            ]);
-
+        $settingsReaderMock = $this->createSettingsReaderMock();
         $connectionMock = $this->createConnectionMock();
         $connectionFactoryMock = $this->createConnectionFactoryMock();
         $connectionFactoryMock->method('createNew')
