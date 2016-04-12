@@ -16,12 +16,12 @@ class ContactUsController{
             return;
         }
 
-        $this->headerModifier->setHeader("HTTP/1.1 303 Other");
-
         if (!isset($_POST["txtEmail"])){
             $this->errorHandler->displayError("no email provided");
             return;
         }
+
+        $this->headerModifier->setHeader("HTTP/1.1 303 Other");
 
         $conn = $this->connectionFactory->createNew("mysql:host=127.0.0.1;dbname=TddContactUs", "root", "");
 
