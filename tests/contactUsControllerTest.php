@@ -12,6 +12,10 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $errorHandlerMock = $this->getMockBuilder('ErrorHandler')
                                  ->setMethods(array('displayError'))
                                  ->getMock();
+        $errorHandlerMock->expects($this->once())
+                         ->method('displayError')
+                         ->with($this->equalTo('no name provided'));
+
         $c = new ContactUsController($errorHandlerMock);
 
         $c->processRequest();
