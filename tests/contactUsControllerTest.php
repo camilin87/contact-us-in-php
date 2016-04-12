@@ -20,6 +20,12 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                     ->getMock();
     }
 
+    private function createHeaderModifierMock(){
+        return $this->getMockBuilder('HeaderModifier')
+                    ->setMethods(array('setHeader'))
+                    ->getMock();
+    }
+
     public function testDisplayAnErrorIfNoNameIsProvided() {
         $errorHandlerMock = $this->createErrorHandlerMock();
         $errorHandlerMock->expects($this->once())
@@ -60,9 +66,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                                  $this->equalTo("root"),
                                  $this->equalTo("")
                               );
-        $headerModifierMock = $this->getMockBuilder('HeaderModifier')
-                                   ->setMethods(array('setHeader'))
-                                   ->getMock();
+        $headerModifierMock = $this->createHeaderModifierMock();
 
         $c = new ContactUsController(NULL, $connectionFactoryMock, $headerModifierMock);
 
@@ -83,9 +87,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $connectionFactoryMock = $this->createConnectionFactoryMock();
         $connectionFactoryMock->method('createNew')
                               ->willReturn($connectionMock);
-        $headerModifierMock = $this->getMockBuilder('HeaderModifier')
-                                   ->setMethods(array('setHeader'))
-                                   ->getMock();
+        $headerModifierMock = $this->createHeaderModifierMock();
 
         $c = new ContactUsController(NULL, $connectionFactoryMock, $headerModifierMock);
 
@@ -102,9 +104,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $connectionFactoryMock->method('createNew')
                               ->willReturn($connectionMock);
 
-        $headerModifierMock = $this->getMockBuilder('HeaderModifier')
-                                   ->setMethods(array('setHeader'))
-                                   ->getMock();
+        $headerModifierMock = $this->createHeaderModifierMock();
         $headerModifierMock->expects($this->once())
                            ->method('setHeader')
                            ->with($this->equalTo("HTTP/1.1 303 Other"));
