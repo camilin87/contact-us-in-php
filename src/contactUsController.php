@@ -9,8 +9,6 @@ class ContactUsController{
     }
 
     public function processRequest(){
-        $this->connectionFactory->createNew("mysql:host=127.0.0.1;dbname=TddContactUs", "root", "");
-
         if (!isset($_POST["txtName"])){
             $this->errorHandler->displayError("no name provided");
             return;
@@ -20,6 +18,8 @@ class ContactUsController{
             $this->errorHandler->displayError("no email provided");
             return;
         }
+
+        $this->connectionFactory->createNew("mysql:host=127.0.0.1;dbname=TddContactUs", "root", "");
     }
 }
 ?>
