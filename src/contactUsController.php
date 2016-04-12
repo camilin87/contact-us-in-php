@@ -23,7 +23,11 @@ class ContactUsController{
 
         $conn = $this->connectionFactory->createNew("mysql:host=127.0.0.1;dbname=TddContactUs", "root", "");
 
-        $conn->exec("INSERT INTO Submissions(name, email) VALUES('".$_POST["txtName"]."', '".$_POST["txtEmail"]."')");
+        try{
+            $conn->exec("INSERT INTO Submissions(name, email) VALUES('".$_POST["txtName"]."', '".$_POST["txtEmail"]."')");
+        }catch(PDOException $ex){
+            return;
+        }
 
         $this->headerModifier->setHeader("HTTP/1.1 303 Other");
         $this->headerModifier->setHeader("Location: http://giphy.com/gifs/zooey-deschanel-happy-tv-show-1VdCubIflP7iM");
