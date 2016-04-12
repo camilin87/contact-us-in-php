@@ -2,9 +2,10 @@
     require "contactUsController.php";
     require "dbConnectionFactory.php";
     require "headerModifier.php";
+    require "errorHandler.php";
 
     $c = new ContactUsController(
-        NULL,
+        new ErrorHandler(),
         new DbConnectionFactory(),
         new HeaderModifier()
     );
