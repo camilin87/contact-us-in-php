@@ -14,6 +14,12 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                     ->getMock();
     }
 
+    private function createConnectionFactoryMock(){
+        return $this->getMockBuilder('DbConnectionFactory')
+                    ->setMethods(array('createNew'))
+                    ->getMock();
+    }
+
     public function testDisplayAnErrorIfNoNameIsProvided() {
         $errorHandlerMock = $this->createErrorHandlerMock();
         $errorHandlerMock->expects($this->once())
@@ -43,9 +49,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $_POST["txtEmail"] = "a@a.com";
 
         $connectionMock = $this->createConnectionMock();
-        $connectionFactoryMock = $this->getMockBuilder('DbConnectionFactory')
-                                      ->setMethods(array('createNew'))
-                                      ->getMock();
+        $connectionFactoryMock = $this->createConnectionFactoryMock();
         $connectionFactoryMock->method('createNew')
                               ->willReturn($connectionMock);
 
@@ -73,10 +77,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                             $this->equalTo("INSERT INTO Submissions(name, email) VALUES('john doe', 'a@a.com')")
                        );
 
-
-        $connectionFactoryMock = $this->getMockBuilder('DbConnectionFactory')
-                                      ->setMethods(array('createNew'))
-                                      ->getMock();
+        $connectionFactoryMock = $this->createConnectionFactoryMock();
         $connectionFactoryMock->method('createNew')
                               ->willReturn($connectionMock);
 
