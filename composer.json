@@ -1,3 +1,5 @@
 {
-    "require": {}
+    "require": {
+        "phpunit/phpunit": "^5.3"
+    }
 }
