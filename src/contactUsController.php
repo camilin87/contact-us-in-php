@@ -26,6 +26,7 @@ class ContactUsController{
         try{
             $conn->exec("INSERT INTO Submissions(name, email) VALUES('".$_POST["txtName"]."', '".$_POST["txtEmail"]."')");
         }catch(PDOException $ex){
+            $this->errorHandler->displayError("db error");
             return;
         }
 
