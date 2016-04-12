@@ -49,5 +49,32 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
 
         $c->processRequest();
     }
+
+    public function testInsertsTheSubmissionInTheDatabase() {
+        $_POST["txtName"] = "john doe";
+        $_POST["txtEmail"] = "a@a.com";
+
+        $connectionMock = $this->getMockBuilder('DbConnection')
+                               ->setMethods(array('exec'))
+                               ->getMock();
+        $connectionMock->expects($this->once())
+                       ->method('exec')
+                       ->with(
+                            $this->equalTo("INSERT INTO Submissions(name, email) VALUES('john doe', 'a@a.com')")
+                       );
+
+
+        $connectionFactoryMock = $this->getMockBuilder('DbConnectionFactory')
+                                      ->setMethods(array('createNew'))
+                                      ->getMock();
+        $connectionFactoryMock->method('createNew')
+                              ->willReturn($connectionMock);
+
+
+        $c = new ContactUsController(NULL, $connectionFactoryMock);
+
+
+        $c->processRequest();
+    }
 }
 ?>
