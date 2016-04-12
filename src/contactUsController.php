@@ -22,6 +22,7 @@ class ContactUsController{
         }
 
         $this->headerModifier->setHeader("HTTP/1.1 303 Other");
+        $this->headerModifier->setHeader("Location: http://giphy.com/gifs/zooey-deschanel-happy-tv-show-1VdCubIflP7iM");
 
         $conn = $this->connectionFactory->createNew("mysql:host=127.0.0.1;dbname=TddContactUs", "root", "");
 
