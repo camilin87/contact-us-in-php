@@ -2,11 +2,6 @@
 require "src/contactUsController.php";
 
 class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
-    public function testControllerExists() {
-        $c = new ContactUsController(NULL, NULL);
-        $this->assertNotNull($c);
-    }
-
     public function testDisplayAnErrorIfNoNameIsProvided() {
         $errorHandlerMock = $this->getMockBuilder('ErrorHandler')
                                  ->setMethods(array('displayError'))
