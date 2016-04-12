@@ -11,12 +11,12 @@ class ContactUsController{
     }
 
     public function processRequest(){
-        $this->headerModifier->setHeader("HTTP/1.1 303 Other");
-
         if (!isset($_POST["txtName"])){
             $this->errorHandler->displayError("no name provided");
             return;
         }
+
+        $this->headerModifier->setHeader("HTTP/1.1 303 Other");
 
         if (!isset($_POST["txtEmail"])){
             $this->errorHandler->displayError("no email provided");
