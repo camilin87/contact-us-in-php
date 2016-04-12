@@ -2,7 +2,7 @@
 class ContactUsController{
     private $errorHandler = NULL;
 
-    function __construct($errorHandler){
+    function __construct($errorHandler, $connectionFactory){
         $this->errorHandler = $errorHandler;
     }
 
