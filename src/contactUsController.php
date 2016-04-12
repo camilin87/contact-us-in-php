@@ -2,11 +2,13 @@
 class ContactUsController{
     private $errorHandler = NULL;
     private $connectionFactory = NULL;
+    private $settingsReader = NULL;
     private $headerModifier = NULL;
 
-    function __construct($errorHandler, $connectionFactory, $headerModifier){
+    function __construct($errorHandler, $connectionFactory, $headerModifier, $settingsReader){
         $this->errorHandler = $errorHandler;
         $this->connectionFactory = $connectionFactory;
+        $this->settingsReader = $settingsReader;
         $this->headerModifier = $headerModifier;
     }
 
@@ -21,8 +23,9 @@ class ContactUsController{
             return;
         }
 
+        $settings = $this->settingsReader->read();
         $conn = $this->connectionFactory->createNew(
-            "the db",
+            $settings["DB_CONN_STR"],
             "the db user",
             "super secret"
         );
