@@ -7,6 +7,7 @@ class ContactUsController{
     }
 
     public function processRequest(){
+        $this->errorHandler->displayError("no name provided");
     }
 }
 ?>
