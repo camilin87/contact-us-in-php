@@ -117,5 +117,29 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
 
         $c->processRequest();
     }
+
+    public function testDisplaysAnErrorOnDbError(){
+        $_POST["txtName"] = "john doe";
+        $_POST["txtEmail"] = "a@a.com";
+
+        $connectionMock = $this->createConnectionMock();
+        $connectionMock->method('exec')
+                       ->will($this->throwException(new PDOException));
+
+        $connectionFactoryMock = $this->createConnectionFactoryMock();
+        $connectionFactoryMock->method('createNew')
+                              ->willReturn($connectionMock);
+
+        $errorHandlerMock = $this->createErrorHandlerMock();
+        $errorHandlerMock->expects($this->once())
+                         ->method('displayError')
+                         ->with($this->equalTo('db error'));
+
+
+        $c = new ContactUsController($errorHandlerMock, $connectionFactoryMock, NULL);
+
+
+        $c->processRequest();
+    }
 }
 ?>
