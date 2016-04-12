@@ -9,14 +9,14 @@
     <h1>Tdd Party</h1>
     <p>Want to join the most exciting TDD party ever? Signup for our waiting list</p>
 
-    <form class="form-inline">
+    <form class="form-inline" method="post" action="src/contactus.php">
       <div class="form-group">
-        <label for="exampleInputName2">Name</label>
-        <input type="text" class="form-control" id="exampleInputName2" placeholder="John Doe">
+        <label for="txtName">Name</label>
+        <input type="text" class="form-control" id="txtName" name="txtName" placeholder="John Doe">
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail2">Email</label>
-        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="john.doe@gmail.com">
+        <label for="txtEmail">Email</label>
+        <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="john.doe@gmail.com">
       </div>
       <button type="submit" class="btn btn-primary">Signup</button>
     </form>
