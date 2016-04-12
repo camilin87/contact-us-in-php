@@ -73,6 +73,39 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $c->processRequest();
     }
 
+    public function testReadsConnectionDetailsFromTheConfiguration() {
+        $_POST["txtName"] = "john doe";
+        $_POST["txtEmail"] = "a@a.com";
+
+        $settingsReaderMock = $this->getMockBuilder('SettingsReader')
+                                   ->setMethods(array('read'))
+                                   ->getMock();
+        $settingsReaderMock->method('read')
+                           ->willReturn([
+                                "DB_CONN_STR" => "the db",
+                                "DB_USER"     => "the db user",
+                                "DB_PWD"      => "super secret"
+                            ]);
+
+        $connectionMock = $this->createConnectionMock();
+        $connectionFactoryMock = $this->createConnectionFactoryMock();
+        $connectionFactoryMock->method('createNew')
+                              ->willReturn($connectionMock);
+
+        $connectionFactoryMock->expects($this->once())
+                              ->method('createNew')
+                              ->with(
+                                 $this->equalTo("the db"),
+                                 $this->equalTo("the db user"),
+                                 $this->equalTo("super secret")
+                              );
+        $headerModifierMock = $this->createHeaderModifierMock();
+
+        $c = new ContactUsController(NULL, $connectionFactoryMock, $headerModifierMock, $settingsReaderMock);
+
+        $c->processRequest();
+    }
+
     public function testInsertsTheSubmissionInTheDatabase() {
         $_POST["txtName"] = "john doe";
         $_POST["txtEmail"] = "a@a.com";
