@@ -60,8 +60,11 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                                  $this->equalTo("root"),
                                  $this->equalTo("")
                               );
+        $headerModifierMock = $this->getMockBuilder('HeaderModifier')
+                                   ->setMethods(array('setHeader'))
+                                   ->getMock();
 
-        $c = new ContactUsController(NULL, $connectionFactoryMock, NULL);
+        $c = new ContactUsController(NULL, $connectionFactoryMock, $headerModifierMock);
 
         $c->processRequest();
     }
