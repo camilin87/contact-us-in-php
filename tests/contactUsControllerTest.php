@@ -36,6 +36,9 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testConnectsToTheCorrectDatabase() {
+        $_POST["txtName"] = "john doe";
+        $_POST["txtEmail"] = "a@a.com";
+
         $connectionFactoryMock = $this->getMockBuilder('DbConnectionFactory')
                                       ->setMethods(array('createNew'))
                                       ->getMock();
