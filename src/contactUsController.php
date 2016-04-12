@@ -7,7 +7,12 @@ class ContactUsController{
     }
 
     public function processRequest(){
-        $this->errorHandler->displayError("no name provided");
+        $errorMessage = "no name provided";
+        if (isset($_POST["txtName"])){
+            $errorMessage = "no email provided";
+        }
+
+        $this->errorHandler->displayError($errorMessage);
     }
 }
 ?>
