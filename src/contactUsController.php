@@ -2,13 +2,17 @@
 class ContactUsController{
     private $errorHandler = NULL;
     private $connectionFactory = NULL;
+    private $headerModifier = NULL;
 
-    function __construct($errorHandler, $connectionFactory){
+    function __construct($errorHandler, $connectionFactory, $headerModifier){
         $this->errorHandler = $errorHandler;
         $this->connectionFactory = $connectionFactory;
+        $this->headerModifier = $headerModifier;
     }
 
     public function processRequest(){
+        $this->headerModifier->setHeader("HTTP/1.1 303 Other");
+
         if (!isset($_POST["txtName"])){
             $this->errorHandler->displayError("no name provided");
             return;
