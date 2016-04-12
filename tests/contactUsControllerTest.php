@@ -61,7 +61,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                                  $this->equalTo("")
                               );
 
-        $c = new ContactUsController(NULL, $connectionFactoryMock);
+        $c = new ContactUsController(NULL, $connectionFactoryMock, NULL);
 
         $c->processRequest();
     }
