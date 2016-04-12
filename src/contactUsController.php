@@ -26,7 +26,7 @@ class ContactUsController{
         $settings = $this->settingsReader->read();
         $conn = $this->connectionFactory->createNew(
             $settings["DB_CONN_STR"],
-            "the db user",
+            $settings["DB_USER"],
             "super secret"
         );
 
