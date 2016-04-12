@@ -87,5 +87,28 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
 
         $c->processRequest();
     }
+
+    public function testRedirectsToASuccessPage() {
+        $_POST["txtName"] = "john doe";
+        $_POST["txtEmail"] = "a@a.com";
+
+        $connectionMock = $this->createConnectionMock();
+        $connectionFactoryMock = $this->createConnectionFactoryMock();
+        $connectionFactoryMock->method('createNew')
+                              ->willReturn($connectionMock);
+
+        $headerModifierMock = $this->getMockBuilder('HeaderModifier')
+                                   ->setMethods(array('setHeader'))
+                                   ->getMock();
+        $headerModifierMock->expects($this->once())
+                           ->method('setHeader')
+                           ->with($this->equalTo("HTTP/1.1 303 Other"));
+
+
+        $c = new ContactUsController(NULL, $connectionFactoryMock, $headerModifierMock);
+
+
+        $c->processRequest();
+    }
 }
 ?>
