@@ -83,9 +83,11 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $connectionFactoryMock = $this->createConnectionFactoryMock();
         $connectionFactoryMock->method('createNew')
                               ->willReturn($connectionMock);
+        $headerModifierMock = $this->getMockBuilder('HeaderModifier')
+                                   ->setMethods(array('setHeader'))
+                                   ->getMock();
 
-
-        $c = new ContactUsController(NULL, $connectionFactoryMock);
+        $c = new ContactUsController(NULL, $connectionFactoryMock, $headerModifierMock);
 
 
         $c->processRequest();
