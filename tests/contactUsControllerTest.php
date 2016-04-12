@@ -14,6 +14,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                                  ->getMock();
         $c = new ContactUsController($errorHandlerMock);
 
+        $c->processRequest();
     }
 }
 ?>
