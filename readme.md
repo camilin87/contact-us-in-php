@@ -14,6 +14,19 @@ mysql -u root < create-db.sql
 composer require phpunit/phpunit
 ```
 
+- Configure PHPUnit runner with default options  
+
+```
+vendor/bin/phpunit --generate-configuration
+```
+
+- Run the tests  
+
+```
+vendor/bin/phpunit
+```
+
+
 ## Development  
 Spin up the local web server
 
