@@ -45,7 +45,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                          ->method('displayError')
                          ->with($this->equalTo('no name provided'));
 
-        $c = new ContactUsController($errorHandlerMock, NULL, NULL);
+        $c = new ContactUsController($errorHandlerMock, NULL, NULL, NULL);
 
         $c->processRequest();
     }
