@@ -114,6 +114,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $_POST["txtName"] = "john doe";
         $_POST["txtEmail"] = "a@a.com";
 
+        $settingsReaderMock = $this->createSettingsReaderMock();
         $connectionMock = $this->createConnectionMock();
         $connectionMock->expects($this->once())
                        ->method('exec')
@@ -126,7 +127,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                               ->willReturn($connectionMock);
         $headerModifierMock = $this->createHeaderModifierMock();
 
-        $c = new ContactUsController(NULL, $connectionFactoryMock, $headerModifierMock);
+        $c = new ContactUsController(NULL, $connectionFactoryMock, $headerModifierMock, $settingsReaderMock);
 
 
         $c->processRequest();
