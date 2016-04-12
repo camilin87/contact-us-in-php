@@ -2,10 +2,14 @@
 require "src/contactUsController.php";
 
 class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
+    private function createErrorHandlerMock(){
+        return $this->getMockBuilder('ErrorHandler')
+                    ->setMethods(array('displayError'))
+                    ->getMock();
+    }
+
     public function testDisplayAnErrorIfNoNameIsProvided() {
-        $errorHandlerMock = $this->getMockBuilder('ErrorHandler')
-                                 ->setMethods(array('displayError'))
-                                 ->getMock();
+        $errorHandlerMock = $this->createErrorHandlerMock();
         $errorHandlerMock->expects($this->once())
                          ->method('displayError')
                          ->with($this->equalTo('no name provided'));
@@ -18,9 +22,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
     public function testDisplayAnErrorIfNoEmailIsProvided() {
         $_POST["txtName"] = "john doe";
 
-        $errorHandlerMock = $this->getMockBuilder('ErrorHandler')
-                                 ->setMethods(array('displayError'))
-                                 ->getMock();
+        $errorHandlerMock = $this->createErrorHandlerMock();
         $errorHandlerMock->expects($this->once())
                          ->method('displayError')
                          ->with($this->equalTo('no email provided'));
