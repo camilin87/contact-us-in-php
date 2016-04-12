@@ -27,7 +27,7 @@ class ContactUsController{
         $conn = $this->connectionFactory->createNew(
             $settings["DB_CONN_STR"],
             $settings["DB_USER"],
-            "super secret"
+            $settings["DB_PWD"]
         );
 
         try{
