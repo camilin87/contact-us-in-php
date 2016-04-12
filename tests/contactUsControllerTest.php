@@ -19,5 +19,20 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
 
         $c->processRequest();
     }
+
+    public function testDisplayAnErrorIfNoEmailIsProvided() {
+        $_POST["txtName"] = "john doe";
+
+        $errorHandlerMock = $this->getMockBuilder('ErrorHandler')
+                                 ->setMethods(array('displayError'))
+                                 ->getMock();
+        $errorHandlerMock->expects($this->once())
+                         ->method('displayError')
+                         ->with($this->equalTo('no email provided'));
+
+        $c = new ContactUsController($errorHandlerMock);
+
+        $c->processRequest();
+    }
 }
 ?>
