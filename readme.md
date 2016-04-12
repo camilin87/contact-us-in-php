@@ -8,7 +8,11 @@ Illustrate the use of TDD with a simple Contact Us form that saves the data to a
 ```
 mysql -u root < create-db.sql
 ```
+- Install PHP dependencies
 
+```
+composer require phpunit/phpunit
+```
 
 ## Development  
 Spin up the local web server
