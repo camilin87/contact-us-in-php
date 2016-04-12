@@ -63,30 +63,6 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $c->processRequest();
     }
 
-    public function testConnectsToTheCorrectDatabase() {
-        $_POST["txtName"] = "john doe";
-        $_POST["txtEmail"] = "a@a.com";
-
-        $settingsReaderMock = $this->createSettingsReaderMock();
-        $connectionMock = $this->createConnectionMock();
-        $connectionFactoryMock = $this->createConnectionFactoryMock();
-        $connectionFactoryMock->method('createNew')
-                              ->willReturn($connectionMock);
-
-        $connectionFactoryMock->expects($this->once())
-                              ->method('createNew')
-                              ->with(
-                                 $this->equalTo("mysql:host=127.0.0.1;dbname=TddContactUs"),
-                                 $this->equalTo("root"),
-                                 $this->equalTo("")
-                              );
-        $headerModifierMock = $this->createHeaderModifierMock();
-
-        $c = new ContactUsController(NULL, $connectionFactoryMock, $headerModifierMock, $settingsReaderMock);
-
-        $c->processRequest();
-    }
-
     public function testReadsConnectionDetailsFromTheConfiguration() {
         $_POST["txtName"] = "john doe";
         $_POST["txtEmail"] = "a@a.com";
