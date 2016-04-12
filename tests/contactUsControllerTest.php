@@ -159,6 +159,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
         $_POST["txtName"] = "john doe";
         $_POST["txtEmail"] = "a@a.com";
 
+        $settingsReaderMock = $this->createSettingsReaderMock();
         $connectionMock = $this->createConnectionMock();
         $connectionMock->method('exec')
                        ->will($this->throwException(new PDOException));
@@ -173,7 +174,7 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
                          ->with($this->equalTo('db error'));
 
 
-        $c = new ContactUsController($errorHandlerMock, $connectionFactoryMock, NULL);
+        $c = new ContactUsController($errorHandlerMock, $connectionFactoryMock, NULL, $settingsReaderMock);
 
 
         $c->processRequest();
