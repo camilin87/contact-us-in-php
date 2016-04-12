@@ -34,5 +34,22 @@ class ContactUsControllerTest extends PHPUnit_Framework_TestCase {
 
         $c->processRequest();
     }
+
+    public function testConnectsToTheCorrectDatabase() {
+        $connectionFactoryMock = $this->getMockBuilder('DbConnectionFactory')
+                                      ->setMethods(array('createNew'))
+                                      ->getMock();
+        $connectionFactoryMock->expects($this->once())
+                              ->method('createNew')
+                              ->with(
+                                 $this->equalTo("mysql:host=127.0.0.1;dbname=TddContactUs"),
+                                 $this->equalTo("root"),
+                                 $this->equalTo("")
+                              );
+
+        $c = new ContactUsController(NULL, $connectionFactoryMock);
+
+        $c->processRequest();
+    }
 }
 ?>
